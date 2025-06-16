@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InspectEdge | Vehicle Valuation Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page" class="page active">
+        <div class="login-container card">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <h1>InspectEdge</h1>
+                <p>Vehicle Valuation Portal</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Email/Username</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="Enter your email or username" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <div class="form-footer">
+                    <a href="#" id="forgot-password">Forgot Password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="page">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo-mini">
+                    <i class="fas fa-car"></i>
+                    <span>InspectEdge</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-profile">
+                    <div class="avatar" id="user-avatar">AD</div>
+                    <span id="admin-username">Admin User</span>
+                    <button id="logout-btn" class="btn btn-sm btn-outline">Logout</button>
+                </div>
+            </div>
+        </header>
+        
+        <div class="dashboard-container">
+            <aside class="sidebar">
+                <nav>
+                    <ul>
+                        <li class="active">
+                            <a href="#" data-page="dashboard">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-page="new-request">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>New Request</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-page="assign-requests">
+                                <i class="fas fa-tasks"></i>
+                                <span>Assign Requests</span>
+                                <span class="badge">5</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-page="reports">
+                                <i class="fas fa-file-alt"></i>
+                                <span>Reports</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-page="manage-agencies">
+                                <i class="fas fa-building"></i>
+                                <span>Agencies</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-page="field-officers">
+                                <i class="fas fa-user-tie"></i>
+                                <span>Field Officers</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="main-content">
+                <!-- Dashboard Overview -->
+                <div id="dashboard-content" class="content-section active">
+                    <div class="content-header">
+                        <h2>Dashboard Overview</h2>
+                        <div class="header-actions">
+                            <div class="date-filter">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Last 7 days</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card card">
+                            <div class="stat-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="total-requests">24</div>
+                                <div class="stat-label">Total Requests</div>
+                            </div>
+                        </div>
+                        <div class="stat-card card">
+                            <div class="stat-icon bg-warning">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="pending-requests">8</div>
+                                <div class="stat-label">Pending</div>
+                            </div>
+                        </div>
+                        <div class="stat-card card">
+                            <div class="stat-icon bg-primary">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="assigned-requests">12</div>
+                                <div class="stat-label">Assigned</div>
+                            </div>
+                        </div>
+                        <div class="stat-card card">
+                            <div class="stat-icon bg-success">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="completed-requests">4</div>
+                                <div class="stat-label">Completed</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section card">
+                        <div class="section-header">
+                            <h3>Recent Requests</h3>
+                            <a href="#" class="view-all">View All</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="recent-requests-table">
+                                <thead>
+                                    <tr>
+                                        <th>Request ID</th>
+                                        <th>Vehicle No.</th>
+                                        <th>Bank Name</th>
+                                        <th>Bank Rep.</th>
+                                        <th>Location</th>
+                                        <th>Type</th>
+                                        <th>Agency</th>
+                                        <th>Agent</th>
+                                        <th>Status</th>
+                                        <th>Deadline</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>REQ-1024</td>
+                                        <td>MH01AB1234</td>
+                                        <td>HDFC Bank</td>
+                                        <td>Rajesh Kumar</td>
+                                        <td>Mumbai</td>
+                                        <td><span class="badge badge-warning">Repo</span></td>
+                                        <td>AutoValuers India</td>
+                                        <td>Rahul Sharma</td>
+                                        <td><span class="badge badge-danger">Pending</span></td>
+                                        <td>Today, 15:00</td>
+                                        <td>
+                                            <button class="btn-icon text-primary" title="View Details">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                            <button class="btn-icon text-success" title="Download Report">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>REQ-1023</td>
+                                        <td>DL2CD5678</td>
+                                        <td>ICICI Bank</td>
+                                        <td>Priya Nair</td>
+                                        <td>Delhi</td>
+                                        <td><span class="badge badge-primary">Refinance</span></td>
+                                        <td>CarValue Experts</td>
+                                        <td>Priya Patel</td>
+                                        <td><span class="badge badge-primary">Assigned</span></td>
+                                        <td>Tomorrow, 11:00</td>
+                                        <td>
+                                            <button class="btn-icon text-primary" title="View Details">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>REQ-1022</td>
+                                        <td>KA03EF9012</td>
+                                        <td>Axis Bank</td>
+                                        <td>Amit Desai</td>
+                                        <td>Bangalore</td>
+                                        <td><span class="badge badge-warning">Repo</span></td>
+                                        <td>Vehicle Assessment</td>
+                                        <td>Amit Singh</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td>Jun 20, 14:00</td>
+                                        <td>
+                                            <button class="btn-icon text-primary" title="View Details">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                            <button class="btn-icon text-success" title="Download Report">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- New Request Form -->
+                <div id="new-request-content" class="content-section">
+                    <div class="content-header">
+                        <h2>Create New Valuation Request</h2>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="request-type-tabs">
+                            <button class="tab-btn active" data-type="single">
+                                <i class="fas fa-file-alt"></i>
+                                <span>Single Request</span>
+                            </button>
+                            <button class="tab-btn" data-type="bulk">
+                                <i class="fas fa-file-csv"></i>
+                                <span>Bulk Upload</span>
+                            </button>
+                        </div>
+                        
+                        <div id="single-request-form" class="request-form">
+                            <form id="vehicle-request-form">
+                                <h4 class="form-section-title">Request Information</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="request-type">Request Type</label>
+                                        <select id="request-type" required>
+                                            <option value="">Select type</option>
+                                            <option value="repo">Repo Vehicle</option>
+                                            <option value="refinance">Refinance Vehicle</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="requestor-name">Bank Name</label>
+                                        <input type="text" id="bank-name" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="requestor-name">Bank Representative</label>
+                                        <input type="text" id="bank-rep-name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="requestor-phone">Bank Rep Phone</label>
+                                        <input type="tel" id="bank-rep-phone" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="yard-location">Location</label>
+                                        <input type="text" id="yard-location" required>
+                                    </div>
+                                    <div class="form-group" id="customer-fields" style="display: none;">
+                                        <label for="customer-phone">Customer Phone</label>
+                                        <input type="tel" id="customer-phone">
+                                    </div>
+                                </div>
+                                
+                                <h4 class="form-section-title">Vehicle Details</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="reg-number">Registration Number</label>
+                                        <input type="text" id="reg-number" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="make">Make</label>
+                                        <input type="text" id="make" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="model">Model</label>
+                                        <input type="text" id="model" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="variant">Variant</label>
+                                        <input type="text" id="variant">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="year">Manufacture Year</label>
+                                        <input type="number" id="year" min="1980" max="2025" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fuel-type">Fuel Type</label>
+                                        <select id="fuel-type" required>
+                                            <option value="">Select fuel type</option>
+                                            <option value="petrol">Petrol</option>
+                                            <option value="diesel">Diesel</option>
+                                            <option value="cng">CNG</option>
+                                            <option value="electric">Electric</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="odometer">Odometer Reading (km)</label>
+                                        <input type="number" id="odometer" min="0">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                                    <button type="reset" class="btn btn-outline">Reset</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div id="bulk-request-form" class="request-form" style="display: none;">
+                            <div class="upload-container">
+                                <div class="upload-box card">
+                                    <i class="fas fa-file-csv upload-icon"></i>
+                                    <h4>Upload Vehicle Data</h4>
+                                    <p>Drag & drop your CSV file here or</p>
+                                    <input type="file" id="csv-upload" accept=".csv" style="display: none;">
+                                    <button class="btn btn-outline" id="browse-btn">Browse Files</button>
+                                    <p class="upload-hint">Download CSV template: <a href="#" id="download-template">Click here</a></p>
+                                </div>
+                                <div class="upload-preview card" id="upload-preview" style="display: none;">
+                                    <div class="section-header">
+                                        <h4>Upload Preview</h4>
+                                        <span class="badge">5 records found</span>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table id="csv-preview-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Reg No.</th>
+                                                    <th>Make</th>
+                                                    <th>Model</th>
+                                                    <th>Bank</th>
+                                                    <th>Location</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>MH01AB1234</td>
+                                                    <td>Maruti</td>
+                                                    <td>Swift</td>
+                                                    <td>HDFC</td>
+                                                    <td>Mumbai</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>DL2CD5678</td>
+                                                    <td>Hyundai</td>
+                                                    <td>Creta</td>
+                                                    <td>ICICI</td>
+                                                    <td>Delhi</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <button class="btn btn-primary" id="confirm-upload">Process Upload</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Assign Requests -->
+                <div id="assign-requests-content" class="content-section">
+                    <div class="content-header">
+                        <h2>Assign Valuation Requests</h2>
+                        <div class="header-actions">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search requests...">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="filter-bar">
+                            <div class="filter-group">
+                                <label for="filter-status">Status:</label>
+                                <select id="filter-status">
+                                    <option value="all">All</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="assigned">Assigned</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="filter-type">Type:</label>
+                                <select id="filter-type">
+                                    <option value="all">All</option>
+                                    <option value="repo">Repo</option>
+                                    <option value="refinance">Refinance</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="filter-bank">Bank:</label>
+                                <select id="filter-bank">
+                                    <option value="all">All Banks</option>
+                                    <option value="hdfc">HDFC Bank</option>
+                                    <option value="icici">ICICI Bank</option>
+                                    <option value="axis">Axis Bank</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-outline" id="apply-filters">Apply</button>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table id="assign-requests-table">
+                                <thead>
+                                    <tr>
+                                        <th width="40"><input type="checkbox" id="select-all"></th>
+                                        <th>Request ID</th>
+                                        <th>Vehicle No.</th>
+                                        <th>Bank</th>
+                                        <th>Bank Rep.</th>
+                                        <th>Location</th>
+                                        <th>Type</th>
+                                        <th>Agency</th>
+                                        <th>Agent</th>
+                                        <th>Status</th>
+                                        <th>Deadline</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox" class="request-checkbox" data-id="1024"></td>
+                                        <td>REQ-1024</td>
+                                        <td>MH01AB1234</td>
+                                        <td>HDFC Bank</td>
+                                        <td>Rajesh Kumar</td>
+                                        <td>Mumbai</td>
+                                        <td><span class="badge badge-warning">Repo</span></td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td><span class="badge badge-danger">Pending</span></td>
+                                        <td>Today, 15:00</td>
+                                        <td>
+                                            <button class="btn-icon text-primary" title="Details">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                            <button class="btn-icon text-success" title="Assign">
+                                                <i class="fas fa-user-tag"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="request-checkbox" data-id="1023"></td>
+                                        <td>REQ-1023</td>
+                                        <td>DL2CD5678</td>
+                                        <td>ICICI Bank</td>
+                                        <td>Priya Nair</td>
+                                        <td>Delhi</td>
+                                        <td><span class="badge badge-primary">Refinance</span></td>
+                                        <td>CarValue Experts</td>
+                                        <td>Priya Patel</td>
+                                        <td><span class="badge badge-primary">Assigned</span></td>
+                                        <td>Tomorrow, 11:00</td>
+                                        <td>
+                                            <button class="btn-icon text-primary" title="Details">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="assign-actions" id="assign-actions" style="display: none;">
+                            <div class="form-group">
+                                <label for="assign-to">Assign to Agency:</label>
+                                <select id="assign-to">
+                                    <option value="">Select agency</option>
+                                    <option value="1">AutoValuers India</option>
+                                    <option value="2">Vehicle Assessment</option>
+                                    <option value="3">CarValue Experts</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="assign-agent">Assign to Agent:</label>
+                                <select id="assign-agent" disabled>
+                                    <option value="">Select agent</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" id="confirm-assign">Assign Selected (3)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Reports Section -->
+                <div id="reports-content" class="content-section">
+                    <div class="content-header">
+                        <h2>Valuation Reports</h2>
+                    </div>
+                    <div class="card">
+                        <p>Reports section content will be displayed here.</p>
+                    </div>
+                </div>
+                
+                <!-- Manage Agencies Section -->
+                <div id="manage-agencies-content" class="content-section">
+                    <div class="content-header">
+                        <h2>Manage Agencies</h2>
+                    </div>
+                    <div class="card">
+                        <p>Agencies management content will be displayed here.</p>
+                    </div>
+                </div>
+                
+                <!-- Field Officers Section -->
+                <div id="field-officers-content" class="content-section">
+                    <div class="content-header">
+                        <h2>Field Officers</h2>
+                    </div>
+                    <div class="card">
+                        <p>Field officers management content will be displayed here.</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgot-password-modal" class="modal">
+        <div class="modal-content card">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3>Reset Password</h3>
+                <p>Enter your email to receive a password reset link</p>
+            </div>
+            <form id="forgot-password-form">
+                <div class="form-group">
+                    <label for="reset-email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="reset-email" placeholder="your@email.com" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
